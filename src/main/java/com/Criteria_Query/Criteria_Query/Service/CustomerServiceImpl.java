@@ -3,7 +3,6 @@ package com.Criteria_Query.Criteria_Query.Service;
 import com.Criteria_Query.Criteria_Query.Entity.Customer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -153,7 +152,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerList;
     }
 
-    @Override
+    @Transactional
     public List<Customer> getCustomerNameAndAddress(String name, String address) {
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -194,13 +193,13 @@ public class CustomerServiceImpl implements CustomerService {
         Root<Customer> customerRoot = criteriaQuery.from(Customer.class);
         criteriaQuery.select(customerRoot);
         Predicate predicate = criteriaBuilder.equal(customerRoot.get("c_id"), id);
+        criteriaQuery.where(predicate);
         TypedQuery<Customer> typedQuery = entityManager.createQuery(criteriaQuery);
         Customer customer1 = typedQuery.getSingleResult();
         customer1.setFname(customer.getFname());
         customer1.setLname(customer.getLname());
         customer1.setAddress(customer.getAddress());
-        //entityManager.persist(customer1);
+        entityManager.merge(customer1);
         return customer1;
     }
-
 }
