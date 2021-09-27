@@ -24,7 +24,7 @@ public class CustomerController {
     }
 
     @GetMapping("/getCustomer/{id}")
-    public List<Customer> getCustomer(@PathVariable int id) {
+    public Customer getCustomer(@PathVariable int id) {
         return customerService.getCustomer(id);
     }
 
@@ -73,4 +73,9 @@ public class CustomerController {
         return customerService.getCustomerNameOrAddress(name, address);
     }
 
+    @PutMapping("/updateCustomer/{id}")
+    public Customer updateCustomer(@PathVariable int id, @RequestBody Customer customer) {
+        return customerService.updateCustomer(id, customer);
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.Criteria_Query.Criteria_Query.Service;
 
 import com.Criteria_Query.Criteria_Query.Entity.Customer;
+
 import java.util.List;
 
 public interface CustomerService {
@@ -10,7 +11,7 @@ public interface CustomerService {
 
     public List<Customer> getCustomers();
 
-    public List<Customer> getCustomer(int id);
+    public Customer getCustomer(int id);
 
     public List<Customer> getCustomerNotEqual(int id);
 
@@ -29,6 +30,8 @@ public interface CustomerService {
     public List<Customer> getCustomerNameAndAddress(String name, String address);
 
     public List<Customer> getCustomerNameOrAddress(String name, String address);
+
+    public Customer updateCustomer(int id, Customer customer);
 
 
 }
