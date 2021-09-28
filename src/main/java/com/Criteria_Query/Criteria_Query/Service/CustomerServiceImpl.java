@@ -203,4 +203,20 @@ public class CustomerServiceImpl implements CustomerService {
         entityManager.merge(customer1);
         return customer1;
     }
+
+    @Transactional
+    public String deleteCustomer(int id) {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Customer> criteriaQuery = criteriaBuilder.createQuery(Customer.class);
+        Root<Customer> customerRoot = criteriaQuery.from(Customer.class);
+        criteriaQuery.select(customerRoot);
+        Predicate predicate = criteriaBuilder.equal(customerRoot.get("c_id"), id);
+        criteriaQuery.where(predicate);
+        TypedQuery<Customer> typedQuery = entityManager.createQuery(criteriaQuery);
+        Customer customer = typedQuery.getSingleResult();
+        entityManager.remove(customer);
+        return "Customer Deleted Successfully";
+    }
+
 }

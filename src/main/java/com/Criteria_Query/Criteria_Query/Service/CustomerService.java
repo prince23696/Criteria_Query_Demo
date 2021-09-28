@@ -32,6 +32,7 @@ public interface CustomerService {
     public List<Customer> getCustomerNameOrAddress(String name, String address);
 
     public Customer updateCustomer(int id, Customer customer);
+    public String deleteCustomer(int id);
 
 
 }
